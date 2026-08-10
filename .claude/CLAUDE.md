@@ -23,6 +23,19 @@
 - 通用工作纪律（`file-operation-priority-rules.md`、`tmp-dir-for-artifacts.md`、`verify-before-report.md`）见全局 `~/.claude/rules/`。
 - 涉及敏感信息（API key、token、密钥）一律按全局规则处理：只写占位符，真实值只进本机配置。
 
+## 子项目 `.claude/` 自动同步（2026-08-10 立）
+
+本项目负责维护若干**子项目**（Anvil 负责的后端项目）。为保证「用户只操作子项目时也能体现该项目归 Anvil 负责」，规定：**本项目 `.claude/` 是权威源，各子项目的 `.claude/` 是它的超集**——本项目 `.claude/` 下除 `CLAUDE.md` 外的每个文件，在子项目的 `.claude/` 下都必须存在且逐字节一致；`CLAUDE.md` 的**内容**同样覆盖到子项目（实现方式不限、效果等价即可，见下）；子项目 `.claude/` 下本项目没有的内容保留不动（超集只增不减）。
+
+- **触发**：本项目 `.claude/` 下任何内容变更（新增 / 修改 / 删除文件）后，**自动同步**到所有子项目，无需询问。
+- **当前子项目清单**：CC-BRIDGE（`~/Documents/Projects/CC-BRIDGE`）。新增子项目时同步更新本清单。
+- **同步方式**：将本项目 `.claude/` 的变更文件复制覆盖到各子项目 `.claude/` 对应位置；子项目 `.claude/` 下本项目没有的内容（如 CC-BRIDGE 的 `rules/cc-bridge-install.md`）**保留不动**——超集只增不减。
+- **删除同步**：本项目 `.claude/` 下除 `CLAUDE.md` 外删除的文件，同步删除各子项目 `.claude/` 中的对应文件，保持超集关系精确一致。
+- **`CLAUDE.md` 内容同样超集（实现方式不限，效果等价即可）**：本项目 `CLAUDE.md` 的**内容**也必须完整覆盖到子项目（子项目会话中能加载 / 看到 Anvil 的全部规则），但**不要求逐字节一致、不要求放在同名文件**。最简单的做法是**直接把本项目 `CLAUDE.md` 的内容加进子项目的 `CLAUDE.md`**；也可以放到子项目 `rules/` 下新建的 rule 文件、再在子项目 CLAUDE.md 里加 `@` 引用（效果等价）。无论哪种方式，建议带一句指代说明（如「以下为 BackendEngineerAgent（Anvil）CLAUDE.md 全文，其中『本项目』均指 BackendEngineerAgent」），避免内容在子项目语境下指代混淆。本项目 `CLAUDE.md` 内容更新时，同步更新子项目对应内容。
+- **验证**：同步后用 `diff` 核对，确认各子项目 `.claude/` 仍为本项目 `.claude/` 的超集。
+- **记录**：源变更记本项目 CHANGELOG；同步动作本身不重复记各子项目 CHANGELOG（源变更记录已在本项目）。
+- **敏感信息**：`settings.local.json` 等本机配置同样同步；若某子项目的 `.gitignore` 缺少对应忽略规则，同步时一并补上。
+
 ## 你的位置
 
 独立于销售流水线。用户的后端开发工程师。
