@@ -7,16 +7,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![Last Commit](https://img.shields.io/github/last-commit/xhq/BackendEngineerAgent)](https://github.com/xhq/BackendEngineerAgent/commits/main)
 [![Type](https://img.shields.io/badge/Type-AI%20Agent-FF1493.svg)](#)
+<img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/xhqing/xhqing/main/traffic/badges/BackendEngineerAgent.json" alt="Visits/day (14d)" />
 
 </div>
 
 # BackendEngineerAgent
 
-> 🔩 **Anvil** — the backend engineer. The anvil on which the fleet's server-side foundation is forged: all backend development, from architecture to API to database to tooling.
+> 🔩 **Anvil** — the backend engineer. The anvil on which the team's server-side foundation is forged: all backend development, from architecture to API to database to tooling.
 
 [简体中文](README_cn.md)
 
-BackendEngineerAgent owns **all backend development** for the fleet: server-side logic, API design and implementation, databases, system architecture, bridge services, and scripts. Whatever needs to be built, fixed, or evolved behind the API, Anvil forges it.
+BackendEngineerAgent owns **all backend development** for the team: server-side logic, API design and implementation, databases, system architecture, bridge services, and scripts. Whatever needs to be built, fixed, or evolved behind the API, Anvil forges it.
 
 ---
 
@@ -31,14 +32,14 @@ The name fits the role: an anvil is the quiet, load-bearing block every hammer b
 
 ---
 
-## Position in the fleet
+## Position in the team
 
 | Agent | Role |
 |---|---|
-| **Anvil** (this project) | All backend development — server-side foundation for the fleet |
-| Prometheus (CapabilityManagerAgent) | Common-capability backbone + cross-project sync + fleet registry |
+| **Anvil** (this project) | All backend development — server-side foundation for the team |
+| Prometheus (CapabilityManagerAgent) | Common-capability backbone + cross-project sync + team registry |
 
-Anvil is independent of the sales pipeline (Scout → Wright → Buzz → Vendy → Echo); it serves the engineering foundation of the whole fleet.
+Anvil is independent of the sales pipeline (Scout → Wright → Buzz → Vendy → Echo); it serves the engineering foundation of the whole team.
 
 ---
 

@@ -7,16 +7,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md)
 [![Last Commit](https://img.shields.io/github/last-commit/xhq/BackendEngineerAgent)](https://github.com/xhq/BackendEngineerAgent/commits/main)
 [![Type](https://img.shields.io/badge/Type-AI%20Agent-FF1493.svg)](#)
+<img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/xhqing/xhqing/main/traffic/badges/BackendEngineerAgent.json" alt="Visits/day (14d)" />
 
 </div>
 
 # BackendEngineerAgent
 
-> 🔩 **Anvil** —— 后端开发工程师。锻造 fleet 服务端底座的铁砧：从架构、API 到数据库、工具，所有后端开发一手包办。
+> 🔩 **Anvil** —— 后端开发工程师。锻造团队服务端底座的铁砧：从架构、API 到数据库、工具，所有后端开发一手包办。
 
 [English](README.md)
 
-BackendEngineerAgent 负责 fleet 的**全部后端开发工作**：服务端逻辑、API 设计与实现、数据库、系统架构、桥接服务、脚本工具。凡是要在 API 背后建造、修复、演进的东西，都由 Anvil 锻造。
+BackendEngineerAgent 负责团队的**全部后端开发工作**：服务端逻辑、API 设计与实现、数据库、系统架构、桥接服务、脚本工具。凡是要在 API 背后建造、修复、演进的东西，都由 Anvil 锻造。
 
 ---
 
@@ -31,14 +32,14 @@ BackendEngineerAgent 负责 fleet 的**全部后端开发工作**：服务端逻
 
 ---
 
-## 在 fleet 中的位置
+## 在团队中的位置
 
 | Agent | 职责 |
 |---|---|
-| **Anvil**（本项目） | 全部后端开发——fleet 的服务端底座 |
-| Prometheus（CapabilityManagerAgent） | 通用能力底座 + 跨项目同步 + fleet 注册表 |
+| **Anvil**（本项目） | 全部后端开发——团队的服务端底座 |
+| Prometheus（CapabilityManagerAgent） | 通用能力底座 + 跨项目同步 + 团队注册表 |
 
-Anvil 独立于销售流水线（Scout → Wright → Buzz → Vendy → Echo）；它服务的是整个 fleet 的工程底座。
+Anvil 独立于销售流水线（Scout → Wright → Buzz → Vendy → Echo）；它服务的是整个团队的工程底座。
 
 ---
 
