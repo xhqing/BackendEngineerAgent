@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### 变更（README 移除 Last Commit 动态徽章：徽章组合合规清理）
+
+- **为什么改**：commit skill 第 9l 步检测（2026-09-09）——徽章规矩为静态徽章（License / Version / Type），Last Commit 属 GitHub 动态时间徽章、随仓库变动、不在允许范围；Visits/day (14d) 访问量徽章为团队集中部署的 endpoint 例外、保留不动。
+- **改了什么**：README.md 与 README_cn.md 徽章区各删除 Last Commit 徽章一行，其余徽章与正文不变。
+
 ### 变更（项目迁移收尾：CLAUDE.md 子项目清单路径更新）
 
 - **为什么改**：项目现址在 `~/Developer/`（`~/Documents/Projects/` 旧址已弃用，2026-09-08 迁移收尾时发现子项目清单仍指旧路径 `~/Documents/Projects/CC-BRIDGE`），避免后续会话被引导到不存在的位置。
