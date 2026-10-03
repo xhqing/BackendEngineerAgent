@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### 变更（CLAUDE.md 删去「由 Claude Code 自动加载」说明句）
+
+- **为什么改**：用户 2026-09-12 要求 CLAUDE.md 不再强调本文由 Claude Code 加载，团队全部项目的 CLAUDE.md 统一清理此类语句。
+- **改了什么**（2026-09-12）：`.claude/CLAUDE.md` 开头角色定位行删去句尾「本文件由 Claude Code 在每次会话开头自动加载。」，角色描述本身保留。
+
+### 变更（全局规则路径与通用能力句式更新：rules 废弃 + find-skill 删除联动）
+
+- **为什么改**：①全局通用规则已全部迁入 `~/.claude/CLAUDE.md`、`~/.claude/rules/` 目录废弃，本项目两处指向旧目录的引用失效；②全局 find-skill skill 已删（实际使用中从未用到），通用能力句式不再提及。均系 2026-09-12 用户指出后的联动清理。
+- **改了什么**：`.claude/CLAUDE.md`：①「遵守通用工作规则（见全局 `~/.claude/rules/`）」与「通用工作纪律（三个规则文件名）见全局 `~/.claude/rules/`」两处改指 `~/.claude/CLAUDE.md`（三个规则文件已随目录废弃并入全局 CLAUDE.md，文件名列表一并移除）；②「（anysearch 实时搜索、find-skill 找 skill 等）」→「（anysearch 实时搜索等）」。子项目 CC-Bridge 副本已按超集规则同步（不另记其 CHANGELOG）。
+
 ### 变更（README 移除 Last Commit 动态徽章：徽章组合合规清理）
 
 - **为什么改**：commit skill 第 9l 步检测（2026-09-09）——徽章规矩为静态徽章（License / Version / Type），Last Commit 属 GitHub 动态时间徽章、随仓库变动、不在允许范围；Visits/day (14d) 访问量徽章为团队集中部署的 endpoint 例外、保留不动。
