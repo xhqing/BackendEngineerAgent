@@ -1,6 +1,13 @@
 # CHANGELOG
 
-## [Unreleased]
+## [0.1.1] - 2026-10-12
+
+### 变更（子项目规则改写为智能体专属文件新规〔2026-10-12〕；上游适配器目录名旧称一并修正）
+
+- **为什么改**：① 用户 2026-10-12 修订规则，取代原「子项目 `.claude/` 超集」规则——`CLAUDE.md`、`AGENTS.md`、`.claude/`、项目级 `.pi/` 等「会话启动时按工作目录加载、表征智能体身份」的智能体专属文件只有 Agent 项目允许拥有，非 Agent 项目（含子项目）一律不得存在；后台会话只能以 Agent 项目根为工作目录。本项目「子项目 `.claude/` 自动同步」节随规则作废，需改写。② 顺带修正存量旧称：上游适配器目录名实际早已简化为 `<name>-bridge/`，本仓 3 处 `cc-<name>-bridge/` 写法（`.claude/CLAUDE.md` + 两版 README）为历史遗留、一并修正（子项目副本此前已为现名）。
+- **改了什么**：① `.claude/CLAUDE.md`：「子项目 `.claude/` 自动同步（2026-08-10 立）」节整体改写为「子项目（2026-10-12 新规）」——子项目不再携带智能体专属文件（CC-Bridge 侧存量已清理，见其 CHANGELOG 2.16.2）；后台会话以本项目根为工作目录、子项目工作按路径跨目录操作（`git -C <子项目目录>`）；细则引用全局 `~/.claude/docs/agents-registry.md` 新节。② `README.md` / `README_cn.md` / `.claude/CLAUDE.md` 共 3 处 `cc-<name>-bridge/` → `<name>-bridge/`。
+
+## [0.1.0] - 2026-08-10
 
 ### 变更（CLAUDE.md 删去「由 Claude Code 自动加载」说明句）
 
@@ -31,8 +38,6 @@
 
 - **为什么改**：用户要求（2026-08-17）访问量徽章名需表达「最近半月日均访问量」口径——xhqing 集中统计侧的 badge JSON label 已从 `Visitors` 改为 `Visits/day (14d)`（`Visits/day` 是 shields.io 表达日均的惯例写法、`(14d)` 标注 14 天滚动窗口），各仓 README 的徽章 alt 文本同步对齐，避免 alt 与徽章实际显示文字脱节。
 - **改了什么**：README 徽章区 `alt="Visitors"` → `alt="Visits/day (14d)"`，仅改 alt 文本，endpoint URL、数据源、徽章口径均不变（口径改动记 xhqing 仓库 CHANGELOG，本仓只改 alt）。
-
-## [0.1.0] - 2026-08-10
 
 ### 变更（Visitors 徽章 alt 文本首字母大写：README 访问量徽章命名统一）
 
