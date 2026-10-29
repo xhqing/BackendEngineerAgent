@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## [Unreleased]
+
+### 变更（子项目规则改为「`AGENTS.md` 软链接 + 真实 `.pi/` 目录」〔2026-10-30 用户新规〕；陈旧路径同步修正）
+
+- **为什么改**：用户 2026-10-30 修订 Agent 与子项目的关系（取代 2026-10-17 的「`.pi` 也挂软链接」）——旧做法下子项目 `.pi` 整个指向本项目的 `.pi`，子项目无法拥有自己的配置（写什么都会落到本项目、影响全部兄弟子项目并进本项目 git 历史）；新规把两层拆开：身份层用 `AGENTS.md` 软链接保持一致（pi 的上下文文件没有 include 机制，复制必然漂移），能力层用真实 `.pi/` 目录 + `settings.json` 路径引用做超集。
+- **改了什么**：
+  - `.claude/CLAUDE.md`（`AGENTS.md` 软链指向它）「子项目」节改写为 2026-10-30 版：身份层（`AGENTS.md` 软链接、不做超集的原因）／能力层（真实 `.pi/` 目录 + `settings.json` 四项目录引用、`APPEND_SYSTEM.md` 追加、`.pi/SYSTEM.md` 不得用）／一条纪律（子项目 `.pi` 只允许追加、不得重述基座规则）／后台会话仍以本项目根为工作目录／当前子项目清单按新形态表述／pi 官方文档依据；规则沿革一行写清（2026-10-12 → 2026-10-17 → 2026-10-30）。
+  - 子项目 CC-Bridge 侧已同批落地：删除 `.pi → ../BackendEngineerAgent/.pi` 软链接、改为真实目录并新增 `.pi/settings.json`（`AGENTS.md` 软链接不动），详见其 CHANGELOG。
+  - **陈旧路径修正**（同一文件 4 处）：`~/.claude/CLAUDE.md` → `~/.pi/agent/CLAUDE.md`（2 处：工作原则、约束）、`~/.claude/docs/agents-registry.md` → `~/.pi/agent/docs/agents-registry.md`（细则指引，并指向 2026-10-30 修订节）、通用能力 bullet 的 `~/.claude/` 与「CapabilityManagerAgent 的 `claude/` 开源镜像」→ `~/.pi/agent/`（镜像目录早已是 `pi/agent/`）。原因：`~/.claude/` 自 2026-10-17 起已迁至 `~/.pi/agent/`（`~/.claude/MOVED-TO-PI.md` 明示遗留副本不再维护），照旧路径读会拿到过期规则（旧副本停在 2026-10-23、缺 2026-10-30 修订）。
+- **验证**：CC-Bridge 目录 `pi --approve -p` 正常启动并返回、项目 `settings.json` 解析无错、无资源路径报错；不存在的本地资源目录（`./extensions` 等）不产生错误，仅供后续按需新建。
+
 ## [0.1.2] - 2026-10-17
 
 ### 变更（子项目关系改为「Agent 进驻子项目」：新增 AGENTS.md / .pi 挂载点，子项目挂指回软链〔2026-10-17 用户新规〕）
