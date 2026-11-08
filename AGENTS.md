@@ -25,16 +25,17 @@
 
 ## 子项目（2026-10-30 修订：Agent 进驻子项目）
 
-本项目负责维护若干**子项目**（Anvil 负责的后端项目）。规则沿革：2026-10-12 立「子项目一律不得存在智能体专属文件」→ 2026-10-17 改为「Agent 进驻子项目（`AGENTS.md` 与 `.pi` 都挂软链接）」→ **2026-10-30 改为本版（`.pi` 不再是软链接）**。
+本项目负责维护若干**子项目**（Anvil 负责的后端项目）。规则沿革：2026-10-12 立「子项目一律不得存在智能体专属文件」→ 2026-10-17 改为「Agent 进驻子项目（`AGENTS.md` 与 `.pi` 都挂软链接）」→ 2026-10-30 改为「身份层软链接 + 能力层路径引用」→ **2026-11-08 改为本版（两边完全独立）**。
 
-- **身份层：`AGENTS.md` 软链接，必须与本项目一致**：`AGENTS.md`、`AGENTS.override.md`、`.claude/`、项目级 `.pi/` 等「会话启动时按工作目录加载、表征智能体身份」的项目级文件，其实体只在 Agent 项目（本项目）允许存在，非 Agent 项目（含本项目负责的子项目）不得放实体、也不得从本项目复制内容进去；子项目根目录挂 `AGENTS.md → ../BackendEngineerAgent/AGENTS.md`（随仓库提交）。**为什么必须一致、不做超集**：pi 的上下文文件只从「全局 + 祖先目录 + 当前目录」加载，没有 include / 导入机制——超集只能靠复制，复制必然随本项目演进而漂移；而且子项目里的会话仍然是 Anvil，身份本来就不该分叉。
-- **能力层：`.pi/` 是子项目自己的真实目录（做超集，用「引用 + 追加」实现）**：`.pi/settings.json` 用路径把本项目的四个资源目录引用进来，再挂子项目本地目录——`extensions`、`skills`、`prompts`、`themes` 四项各写一条 `~/Developer/BackendEngineerAgent/.pi/<目录>` 与一条 `./<目录>`；子项目专属**规则**用 `.pi/APPEND_SYSTEM.md` 追加（**不要用 `.pi/SYSTEM.md`**——那是整体替换，会把 agent 身份冲掉）；子项目自己新增的扩展 / 技能直接放进自己的 `.pi/<目录>` 即可被自动发现，不必写进 settings。**为什么用目录引用而不是复制**：引用的是目录，本项目以后新增技能 / 扩展会**自动带过去**、零同步动作；同时子项目往 `.pi` 写东西只写自己的目录，**不会污染本项目、也不影响兄弟子项目**——这是 `.pi` 整目录软链接时代做不到的（那时子项目写 `.pi` 等于直接写进本项目）。
-- **一条纪律**：子项目 `.pi` 只允许**追加**，不允许重述 / 覆盖基座规则；一旦重述就有两套说法、必然打架。
+- **两边完全独立（2026-11-08 用户立，取代 2026-10-30 的「身份层软链接 + 能力层路径引用」）**：本项目与子项目的 `AGENTS.md`、`.pi/` 之间**没有任何链接、没有任何路径引用**，各自只放本项目真实需要的内容。
+  - **子项目那边**：`AGENTS.md` 是**本仓库的实体文件**（本项目是什么 / 归 Anvil 负责 / Worker 边界 / 规则索引），`.pi/` 只放自己的东西（通常是 `.pi/APPEND_SYSTEM.md` 一份硬约束，需要技能扩展就放自己的 `.pi/{extensions,skills,...}`）。
+  - **本项目这边**：`AGENTS.md` / `.pi/` 只为 Anvil 自己的需要存在，不为「让子项目继承」维护任何共享资源。
+  - **为什么**：跨仓库路径引用是隐式依赖（本项目改名、子项目单独 clone、换机器都会静默失效，pi 不报错只是少加载东西）；「只允许追加、不许重述」的纪律本身就说明两层绑在一起有事。
+  - **安全网不受影响**：全局 `~/.pi/agent/`（团队规则、`add` / `commit` / `bump` / `release` 技能、各类守卫扩展）在任何目录都会加载。
 - **Leader / Worker 分工（2026-11-07 全局规则，取代 2026-10-17「只允许 Agent 项目根目录」）**：本项目根目录起的会话是 **Leader**（项目负责人），只做四件事——名下子项目 local main 同步、建 worktree、用 `agent_call` 派任务、收尾（对齐 local main + 删 worktree）。子项目根目录 / 子项目 worktree 目录起的会话是 **Worker**（临时工），只干 worktree 里的具体活（改代码、跑测试、`/add` → `/commit` → PR）并向 Leader 汇报。`agent_call` / `agent_wake` 的 `dir` 允许三类目录（Agent 项目根 / 已登记子项目根 / 子项目的 git worktree），启动命令带 `-a`。**为什么不能让 Leader 在子项目里按路径干活**：子项目的 `.pi/APPEND_SYSTEM.md` 与本地资源只有 cwd 落在子项目 / worktree 上才会被 pi 加载（pi 只读 cwd 这一层 `.pi/`，不向上继承）。详见全局 `~/.pi/agent/AGENTS.md`「Leader / Worker 分工」与 `~/.pi/agent/docs/agents-registry.md` 第 4 条。
-- **当前子项目清单**：CC-Bridge（`~/Developer/CC-Bridge`）——已挂 `AGENTS.md` 软链接 + 真实 `.pi/` 目录（`settings.json` 引用本项目资源）。新增 / 变更子项目时，同步更新本清单与全局子项目映射表，并给新子项目按此新形态配置，保持一致。
-- **依据（2026-10-30 按 pi 官方文档核实）**：`docs/settings.md`「Resources」——项目 `.pi/settings.json` 里的路径相对 `.pi` 解析、支持 `~` / 绝对路径 / glob / `!` 排除，路径可以是目录；`docs/skills.md` / `docs/extensions.md`——`.pi/{extensions,skills,prompts,themes}` 的自动发现照常生效；`docs/usage.md`「System Prompt Files」——`.pi/APPEND_SYSTEM.md` 追加、`.pi/SYSTEM.md` 替换。
+- **当前子项目清单**：CC-Bridge（`~/Developer/CC-Bridge`）——已带本仓库实体 `AGENTS.md` + `.pi/APPEND_SYSTEM.md`，不挂软链接、不写跨仓库 `settings.json` 路径。新增 / 变更子项目时，同步更新本清单与全局子项目映射表，并按此形态配置。
 
-细则与子项目映射表见全局 `~/.pi/agent/docs/agents-registry.md`「智能体专属文件归属与子项目映射（2026-10-30 修订）」节。
+细则与子项目映射表见全局 `~/.pi/agent/docs/agents-registry.md`「智能体专属文件归属与子项目映射（2026-11-08 修订）」节。
 
 ## 你的位置
 
