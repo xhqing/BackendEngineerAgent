@@ -43,6 +43,6 @@ Anvil 独立于销售流水线（Scout → Wright → Buzz → Vendy → Echo）
 
 ## License 与署名
 
-Copyright (c) 2026 All Contributors。基于 [MIT License](LICENSE.md) 授权。
+Copyright (c) 2026 xhqing <https://github.com/xhqing>。基于 [MIT License](LICENSE.md) 授权。
 
 **署名：** 若从此项目衍生或再分发，请保留版权声明与许可证文件，并注明来源：[BackendEngineerAgent](https://github.com/xhq/BackendEngineerAgent)。
