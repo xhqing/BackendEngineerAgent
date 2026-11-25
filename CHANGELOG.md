@@ -1,5 +1,11 @@
 # CHANGELOG
 
+### 变更（会话角色改为 agentLeader / subLeader / Worker 三级，2026-11-25）
+
+- **为什么改**：用户 2026-11-25 把全团队的 Leader / Worker 重新定义为三级角色（agentLeader / subLeader / Worker），判据只看「cwd 所在项目 + 当前是否停在 main」。本项目原写「本项目根目录起的会话是 Leader、子项目根 / 子项目 worktree 是 Worker」，与全局新口径不一致：按旧文，子项目主工作区 main 会话会被当成 Worker，而它实际应当能建删 worktree、派单、合并自身 PR、发自身版本；`agent_call` 的 `dir` 也从三类扩成了四类。
+- **改了什么**：`AGENTS.md` 的「子项目」节把「Leader / Worker 分工」整段重写为三级角色——本项目主工作区 main = agentLeader（管本项目 + CC-Bridge）、CC-Bridge 主工作区 main = subLeader（只管 CC-Bridge）、任何项目的非 main 分支 worktree = Worker；补上权限蕴含关系、`dir` 四类目录，指引改为全局 `AGENTS.md`「Leader / Worker 的定义」与 `docs/agents-registry.md` 第 5 条。同一节里子项目 `AGENTS.md` 应写的内容由「Worker 边界」改为「会话角色（subLeader / Worker）」。
+- **回归检查**：只改规则表述，不动代码与构建配置；「两边完全独立」「安全网不受影响」等既有口径原样保留。
+
 ### 变更（本项目与子项目的 `AGENTS.md`、`.pi/` 改为完全独立，2026-11-08）
 
 - **为什么改**：用户 2026-11-08 决定「Agent 项目与其子项目二者的 AGENTS.md（项目规则）和 .pi 目录之间应该完全无关」——各自只放本项目真实需要的规则与工具，这样才能同时满足两边的特异性需求。原做法（子项目挂 `AGENTS.md` 软链接 + `.pi/settings.json` 引用本项目四个资源目录）的毛病：跨仓库路径引用是隐式依赖，本项目改名 / 子项目单独 clone / 换机器都会静默失效（pi 不报错，只是少加载东西）；而「只允许追加、不许重述」的纪律本身就说明两层绑在一起有事。
